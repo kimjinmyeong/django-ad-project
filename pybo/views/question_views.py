@@ -10,7 +10,7 @@ from ..models import Question
 @login_required(login_url="common:login")
 def question_create(request):
     """
-    pybo 질문등록
+    pybo 질문 등록
     """
     if request.method == "POST":
         form = QuestionForm(request.POST)
@@ -29,11 +29,11 @@ def question_create(request):
 @login_required(login_url="common:login")
 def question_modify(request, question_id):
     """
-    pybo 질문수정
+    pybo 질문 수정
     """
     question = get_object_or_404(Question, pk=question_id)
     if request.user != question.author:
-        messages.error(request, "수정권한이 없습니다")
+        messages.error(request, "수정 권한이 없습니다")
         return redirect("pybo:detail", question_id=question.id)
 
     if request.method == "POST":
@@ -53,11 +53,11 @@ def question_modify(request, question_id):
 @login_required(login_url="common:login")
 def question_delete(request, question_id):
     """
-    pybo 질문삭제
+    pybo 질문 삭제
     """
     question = get_object_or_404(Question, pk=question_id)
     if request.user != question.author:
-        messages.error(request, "삭제권한이 없습니다")
+        messages.error(request, "삭제 권한이 없습니다")
         return redirect("pybo:detail", question_id=question.id)
     question.delete()
     return redirect("pybo:index")
