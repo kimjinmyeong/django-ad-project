@@ -10,7 +10,7 @@ from ..models import Question, Answer
 @login_required(login_url="common:login")
 def answer_create(request, question_id):
     """
-    pybo 답변등록
+    pybo 답변 등록
     """
     question = get_object_or_404(Question, pk=question_id)
     if request.method == "POST":
@@ -35,7 +35,7 @@ def answer_create(request, question_id):
 @login_required(login_url="common:login")
 def answer_modify(request, answer_id):
     """
-    pybo 답변수정
+    pybo 답변 수정
     """
     answer = get_object_or_404(Answer, pk=answer_id)
     if request.user != answer.author:
@@ -64,11 +64,11 @@ def answer_modify(request, answer_id):
 @login_required(login_url="common:login")
 def answer_delete(request, answer_id):
     """
-    pybo 답변삭제
+    pybo 답변 삭제
     """
     answer = get_object_or_404(Answer, pk=answer_id)
     if request.user != answer.author:
-        messages.error(request, "삭제권한이 없습니다")
+        messages.error(request, "삭제 권한이 없습니다")
     else:
         answer.delete()
     return redirect("pybo:detail", question_id=answer.question.id)
