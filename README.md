@@ -18,4 +18,4 @@
 
 - [ ] 4. 댓글 수정 횟수 표시 기능   (예를 들어, 질문과 답변 댓글에 대해 n번 수정이 되었음을 나타내는 수치를 표시)
 
-- [ ] 5. comment view 분리 (03-11 챕터에서 comment view를 comment_question_view와  comment_answer_view 로 두 개의 view 파일로 분리하세요)
+- [X] 5. comment view 분리 (03-11 챕터에서 comment view를 comment_question_view와  comment_answer_view 로 두 개의 view 파일로 분리하세요)
