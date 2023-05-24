@@ -51,7 +51,7 @@
                         <!-- 댓글추천영역 -->
                         <div class="bg-light text-center p-1 border font-weight-bolder mb-1 col-1">{{comment.voter.count}}</div>
                         <div class="col-2">
-                            <a href="#" data-uri="{% url 'pybo:question_vote_comment' comment.id  %}"
+                            <a href="#" data-uri="{% url 'pybo:vote_comment' comment.id  %}"
                                class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
                         </div>
                         <div class="col-9"> <!-- 댓글영역 -->
@@ -125,7 +125,7 @@
                         <!-- 댓글추천영역 -->
                         <div class="bg-light text-center p-1 border font-weight-bolder mb-1 col-1">{{comment.voter.count}}</div>
                         <div class="col-2">
-                            <a href="#" data-uri="{% url 'pybo:answer_vote_comment' comment.id  %}"
+                            <a href="#" data-uri="{% url 'pybo:vote_comment' comment.id  %}"
                                class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
                         </div>
                         <div class="col-9"> <!-- 댓글영역 -->
