@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.db.models import Q, Count
 from django.shortcuts import render, get_object_or_404
 
 from ..models import Question
@@ -27,15 +28,27 @@ def detail(request, question_id):
     pybo 내용 출력
     """
     # 입력 파라미터
-    page = request.GET.get("page", "1")
+    page = request.GET.get('page', '1')  # 페이지
+    kw = request.GET.get('kw', '')  # 검색어
+    so = request.GET.get('so', 'recent')  # 정렬기준
 
-    # 조회
+    # 정렬
     question = get_object_or_404(Question, pk=question_id)
-    comment_list = question.comment_set.order_by('-create_date')
+    if so == 'recommend':
+        comment_list = question.comment_set.annotate(num_voter=Count('voter')).order_by('-num_voter', '-create_date')
+    else:
+        comment_list = question.comment_set.order_by('-create_date')
+
+    #검색
+    if kw:
+        comment_list = comment_list.filter(
+            Q(content__icontains=kw) |  # 내용검색
+            Q(author__username__icontains=kw) #|  # 댓글 글쓴이검색
+        ).distinct()
 
     # 페이징처리
     paginator = Paginator(comment_list, 5)
     page_obj = paginator.get_page(page)
 
-    context = {"question": question, "comment_list" : page_obj}
+    context = {"question": question, "comment_list" : page_obj, 'page': page, 'kw': kw, 'so': so}
     return render(request, "pybo/question_detail.html", context)
