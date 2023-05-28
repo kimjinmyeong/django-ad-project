@@ -1,0 +1,72 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- pybo CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>Pybo</title>
+    <style>
+        body {
+            font: 30px Montserrat, sans-serif;
+            line-height: 1.8;
+            background-color: #2f2f2f;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        .margin {
+            margin: 100px;
+            animation: fade-in-up 1s ease-in-out;
+        }
+
+        .bg-1 {
+            background-color: #2f2f2f;
+            color: #ffffff;
+        }
+
+        .bg-4 {
+            background-color: #2f2f2f; /* Black Gray */
+            color: #fff;
+        }
+
+        .container-fluid {
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 100px, 0);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- First Container -->
+<div class="container-fluid bg-1 text-center">
+    <h3 class="margin" style="font-size: 80px">"Hello, Pybo!"</h3>
+    <h3>Pybo 게시판으로 이동하기</h3>
+    <a href="{{ board_url }}">{{ button_text }}</a>
+</div>
+<!-- Footer -->
+<footer class="container-fluid bg-4 text-center">
+    <p>
+        This project was conducted as part of the Web Server Computing course at Kookmin University. <a
+            href="https://cs.kookmin.ac.kr">https://cs.kookmin.ac.kr</a>
+    </p>
+</footer>
+</body>
+</html>
