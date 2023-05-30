@@ -3,6 +3,7 @@ from django.db import models
 
 
 class Question(models.Model):
+    id = models.BigAutoField(primary_key=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="author_question"
     )
@@ -17,6 +18,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
+    id = models.BigAutoField(primary_key=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="author_answer"
     )
@@ -28,6 +30,7 @@ class Answer(models.Model):
 
 
 class Comment(models.Model):
+    id = models.BigAutoField(primary_key=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="author_comment"
     )
