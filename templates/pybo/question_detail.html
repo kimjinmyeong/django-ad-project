@@ -16,7 +16,7 @@
         <div class="col-1"> <!-- 추천영역 -->
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{question.voter.count}}</div>
             <a href="#" data-uri="{% url 'pybo:vote_question' question.id  %}"
-               class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+               class="recommend btn btn-sm btn-warning btn-secondary btn-block my-1">추천</a>
         </div>
         <div class="col-11"> <!-- 질문영역 -->
             <div class="card">
@@ -66,7 +66,7 @@
                         <div class="bg-light text-center p-1 border font-weight-bolder mb-1 col-1">{{comment.voter.count}}</div>
                         <div class="col-2">
                             <a href="#" data-uri="{% url 'pybo:vote_comment' comment.id  %}"
-                               class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+                               class="recommend btn btn-sm btn-warning btn-secondary btn-block my-1">추천</a>
                         </div>
                         <div class="col-9"> <!-- 댓글영역 -->
                             <div class="comment py-2 text-muted">
@@ -128,7 +128,7 @@
                     <!-- 페이징처리 끝 -->
                     <div>
                         <a href="{% url 'pybo:comment_create_question' question.id  %}"
-                           class="small"><small>댓글 추가 ..</small></a>
+                           class="small btn btn-primary">댓글 추가</a>
                     </div>
                     <!-- 질문 댓글 End -->
                 </div>
@@ -142,7 +142,7 @@
         <div class="col-1">  <!-- 추천영역 -->
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{answer.voter.count}}</div>
             <a href="#" data-uri="{% url 'pybo:vote_answer' answer.id  %}"
-                class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+                class="recommend btn btn-sm btn-warning btn-secondary btn-block my-1">추천</a>
         </div>
         <div class="col-11">  <!-- 답변영역 -->
             <div class="card">
@@ -178,7 +178,7 @@
                         <div class="bg-light text-center p-1 border font-weight-bolder mb-1 col-1">{{comment.voter.count}}</div>
                         <div class="col-2">
                             <a href="#" data-uri="{% url 'pybo:vote_comment' comment.id  %}"
-                               class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+                               class="recommend btn btn-sm btn-warning btn-secondary btn-block my-1">추천</a>
                         </div>
                         <div class="col-9"> <!-- 댓글영역 -->
                             <div class="comment py-2 text-muted">
@@ -202,7 +202,7 @@
                     {% endif %}
                     <div>
                         <a href="{% url 'pybo:comment_create_answer' answer.id  %}"
-                           class="small"><small>댓글 추가 ..</small></a>
+                           class="small btn btn-primary">댓글 추가</a>
                     </div>
                     <!-- 질문 댓글 End -->
                 </div>
