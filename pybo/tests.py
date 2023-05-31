@@ -2,11 +2,12 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-from .models import Question
+from .models import Question, Comment, Answer
 
 
 class QuestionCreateTests(TestCase):
-    def setUp(self) -> None:
+    @classmethod
+    def setUpTestData(cls) -> None:
         User.objects.create_user(username="testuser", password="testpassword")
 
     def test_create_no_login(self):
@@ -24,7 +25,8 @@ class QuestionCreateTests(TestCase):
 
 
 class QuestionModifyTests(TestCase):
-    def setUp(self) -> None:
+    @classmethod
+    def setUpTestData(cls) -> None:
         User.objects.create_user(username="testuser", password="testpassword")
         user = User.objects.get(username="testuser")
         Question.objects.create(
@@ -53,7 +55,8 @@ class QuestionModifyTests(TestCase):
 
 
 class QuestionDeleteTests(TestCase):
-    def setUp(self) -> None:
+    @classmethod
+    def setUpTestData(cls) -> None:
         User.objects.create_user(username="testuser", password="testpassword")
         user = User.objects.get(username="testuser")
         Question.objects.create(
@@ -85,7 +88,8 @@ class QuestionDeleteTests(TestCase):
 
 
 class VoteQuestionTests(TestCase):
-    def setUp(self) -> None:
+    @classmethod
+    def setUpTestData(cls) -> None:
         User.objects.create_user(username="testuser", password="testpassword")
         user = User.objects.get(username="testuser")
         Question.objects.create(
@@ -123,3 +127,114 @@ class VoteQuestionTests(TestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(question.voter.count(), 1)
+
+
+class CountModificationTests(TestCase):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        User.objects.create_user(username="testuser", password="testpassword")
+        user = User.objects.get(username="testuser")
+        Question.objects.create(
+            subject="test question",
+            content="test content",
+            author=user,
+            create_date=timezone.now(),
+            modify_date=timezone.now(),
+        )
+        question = Question.objects.get(subject="test question")
+        Comment.objects.create(
+            author=user,
+            content="test comment",
+            create_date=timezone.now(),
+            question=question,
+        )
+        Answer.objects.create(
+            author=user,
+            question=question,
+            content="test answer",
+            create_date=timezone.now(),
+        )
+
+    def test_count_modification_question(self):
+        self.client.login(username="testuser", password="testpassword")
+        question = Question.objects.get(subject="test question")
+
+        self.client.post(
+            f"/pybo/questions/modify/{question.id}/",
+            {
+                "subject": "제목1",
+                "content": "내용1",
+            },
+        )
+        self.client.post(
+            f"/pybo/questions/modify/{question.id}/",
+            {
+                "subject": "제목2",
+                "content": "내용2",
+            },
+        )
+        response = self.client.post(
+            f"/pybo/questions/modify/{question.id}/",
+            {
+                "subject": "제목3",
+                "content": "내용3",
+            },
+        )
+        question.refresh_from_db()
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(question.modify_counter, 3)
+
+    def test_count_modification_comment(self):
+        self.client.login(username="testuser", password="testpassword")
+        comment = Comment.objects.get(content="test comment")
+
+        self.client.post(
+            f"/pybo/comments/modify/questions/{comment.id}/",
+            {
+                "content": "댓글 내용1",
+            },
+        )
+        self.client.post(
+            f"/pybo/comments/modify/questions/{comment.id}/",
+            {
+                "content": "댓글 내용2",
+            },
+        )
+        response = self.client.post(
+            f"/pybo/comments/modify/questions/{comment.id}/",
+            {
+                "content": "댓글 내용3",
+            },
+        )
+        comment.refresh_from_db()
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(comment.modify_counter, 3)
+
+    def test_count_modification_answer(self):
+        self.client.login(username="testuser", password="testpassword")
+        answer = Answer.objects.get(content="test answer")
+
+        self.client.post(
+            f"/pybo/answers/modify/{answer.id}/",
+            {
+                "content": "답 내용1",
+            },
+        )
+        self.client.post(
+            f"/pybo/answers/modify/{answer.id}/",
+            {
+                "content": "답변 내용2",
+            },
+        )
+        response = self.client.post(
+            f"/pybo/answers/modify/{answer.id}/",
+            {
+                "content": "답변 내용3",
+            },
+        )
+        answer.refresh_from_db()
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(answer.modify_counter, 3)
