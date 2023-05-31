@@ -48,6 +48,7 @@ def answer_modify(request, answer_id):
             answer = form.save(commit=False)
             answer.author = request.user
             answer.modify_date = timezone.now()
+            answer.modify_counter += 1
             answer.save()
             return redirect(
                 "{}#answer_{}".format(

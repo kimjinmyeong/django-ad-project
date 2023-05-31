@@ -25,7 +25,7 @@
                     <div class="d-flex justify-content-end">
                         {% if question.modify_date %}
                         <div class="badge badge-light p-2 text-left mx-3">
-                            <div class="mb-2">modified at</div>
+                            <div class="mb-2">{{question.modify_counter}} 번째 modified at</div>
                             <div>{{ question.modify_date }}</div>
                         </div>
                         {% endif %}
@@ -74,7 +74,7 @@
                                 <span>
                                     - {{ comment.author }}, {{ comment.create_date }}
                                     {% if comment.modify_date %}
-                                    (수정:{{ comment.modify_date }})
+                                    ({{ comment.modify_counter }} 번째 수정:{{ comment.modify_date }})
                                     {% endif %}
                                 </span>
                                 {% if request.user == comment.author %}
@@ -151,7 +151,7 @@
                     <div class="d-flex justify-content-end">
                         {% if answer.modify_date %}
                         <div class="badge badge-light p-2 text-left mx-3">
-                            <div class="mb-2">modified at</div>
+                            <div class="mb-2">{{answer.modify_counter}} 번째 modified at</div>
                             <div>{{ answer.modify_date }}</div>
                         </div>
                         {% endif %}
@@ -186,7 +186,7 @@
                                 <span>
                                     - {{ comment.author }}, {{ comment.create_date }}
                                     {% if comment.modify_date %}
-                                    (수정:{{ comment.modify_date }})
+                                    ({{ comment.modify_counter }} 번째 수정: {{ comment.modify_date }})
                                     {% endif %}
                                 </span>
                                 {% if request.user == comment.author %}
