@@ -33,6 +33,16 @@
     ├── common
     └── pybo
 ```
+common : 사용자 로그인 관련 view, url 
+
+config : 프로젝트 설정 및 주 url path 라우팅
+
+pybo : 게시판 관련
+
+static : bootstrap, css, jquery 파일 저장
+
+templates : html 파일 저장
+
 # 수행 과제
 - [X] 1. 질문 및 답변 수정에 대한 히스토리 viewing (예를 들어, 질문이 n번 수정이 되었음을 나타내는 수치를 표시)
 
